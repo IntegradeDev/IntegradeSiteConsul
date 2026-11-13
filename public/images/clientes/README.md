@@ -1,28 +1,20 @@
 # Logos de clientes
 
-Esta pasta ainda não contém nenhum arquivo de logo. Por isso a página
-`/clientes` apresenta as marcas de forma **tipográfica** (nome em wordmark),
-sem provedor externo e sem card vazio.
+Arquivos usados na parede de marcas de `/clientes` e na faixa de logos da Home.
+A lista de marcas e o arquivo de cada uma ficam em `src/data/marcas.js`.
 
-## Como ativar os logos oficiais
+## Origem dos arquivos
 
-1. Suba os PNGs aqui, com fundo transparente, ~400px de largura.
-   Use nomes curtos, sem acento e sem espaço:
-   `eletrobras.png`, `furnas.png`, `sabesp.png`, `porto-de-santos.png` ...
-2. Abra `src/pages/Clientes.jsx` e preencha o mapa `LOGOS`, usando o slug do
-   nome como chave:
+- Wikimedia Commons: eletrobras, furnas, eletronuclear, cnen, inb, nuclep,
+  sabesp, banrisul, unifei, unifesp, ghc, senai.
+- Site oficial: porto-de-santos (portodesantos.com.br), emap (portodoitaqui.com.br),
+  theatro-municipal (theatromunicipal.org.br — Theatro Municipal de São Paulo).
 
-```js
-const LOGOS = {
-  eletrobras: 'images/clientes/eletrobras.png',
-  furnas: 'images/clientes/furnas.png',
-  sabesp: 'images/clientes/sabesp.png',
-};
-```
+## Adicionar ou trocar um logo
 
-3. Nada mais precisa ser alterado. Cada marca com arquivo mapeado passa a
-   exibir a imagem; se o arquivo falhar, volta para o nome — nunca aparece
-   card vazio.
+1. Salve o PNG (fundo transparente, ~400–600px de largura) ou SVG nesta pasta,
+   com nome curto, sem acento e sem espaço: `susep.png`, `grupo-ccr.png`...
+2. Em `src/data/marcas.js`, preencha `logo: 'images/clientes/susep.png'`.
 
-O slug é gerado assim: minúsculas, sem acentos, espaços e pontuação viram `-`.
-`GHC — Grupo Hospitalar Conceição` → `ghc-grupo-hospitalar-conceicao`.
+Marca sem arquivo (ou com arquivo que falhe ao carregar) aparece como nome em
+texto na página Clientes e é omitida da faixa da Home — nunca como caixa vazia.

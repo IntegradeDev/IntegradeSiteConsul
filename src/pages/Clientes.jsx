@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { asset } from '../lib/assetUrl.js';
+import MapaAtuacao from '../components/clientes/MapaAtuacao.jsx';
+import { LOCALIDADES } from '../data/atuacao.js';
+import { DESTAQUES } from '../data/marcas.js';
 
 /**
  * VITRINE DE CLIENTES — Integrade Consulting
  *
  * Regras aplicadas nesta versão:
  *  1. Fundo branco, tipografia sóbria, sem cartões repetidos.
- *  2. Nenhuma caixa vazia: só é renderizado card quando existe arquivo de logo.
+ *  2. Nenhuma caixa vazia: marca sem logo aparece como wordmark tipográfico.
  *  3. Sem provedor externo de logo (Clearbit / Google / DuckDuckGo) — a rede
  *     do ambiente bloqueia recursos externos e o resultado era globo genérico
- *     ou card vazio.
- *  4. Sem inventar logo: como não há NENHUM arquivo de logo de cliente em
- *     `public/images/clientes/`, a apresentação é tipográfica (wordmark), que
- *     é o padrão usado por Stripe/Linear/Vercel em "trusted by".
+ *     ou card vazio. Os logos são arquivos locais em `public/images/clientes/`.
  *
- * COMO ATIVAR OS LOGOS REAIS:
- *  1. Suba os PNGs para `public/images/clientes/` (fundo transparente, ~400px).
- *  2. Preencha o mapa LOGOS abaixo com a chave = slug do nome.
- *     Ex.: eletrobras: 'images/clientes/eletrobras.png'
- *  3. Pronto: o card passa a exibir a imagem; o nome continua abaixo.
+ * Logos e marcas em destaque: `src/data/marcas.js`.
+ * Mapa de atuação: `src/data/atuacao.js`.
  *
  * Nomes derivados das pastas de clientes informadas pela empresa. Itens que não
  * são clientes foram excluídos (ex.: "Inquerito", "! Antigos", "lista.txt",
  * arquivo .rar, atalho .lnk) e siglas não identificáveis com segurança foram
  * omitidas para não gerar informação incorreta.
  */
-
-const LOGOS = {
-  // Exemplos (descomente ao subir os arquivos):
-  // eletrobras: 'images/clientes/eletrobras.png',
-  // furnas: 'images/clientes/furnas.png',
-  // sabesp: 'images/clientes/sabesp.png',
-};
 
 const SETORES = [
   {
@@ -160,69 +150,42 @@ const SETORES = [
   },
 ];
 
-/** Marcas com maior reconhecimento — abrem a página como faixa de credibilidade. */
-const DESTAQUES = [
-  'Eletrobras',
-  'FURNAS',
-  'Eletronuclear',
-  'CNEN',
-  'INB',
-  'NUCLEP',
-  'SABESP',
-  'Porto de Santos',
-  'EMAP',
-  'Grupo CCR',
-  'SENAI — CETIQT',
-  'UNIFESP',
-  'UNIFEI',
-  'Hospital Alemão Oswaldo Cruz',
-  'GHC — Grupo Hospitalar Conceição',
-  'BANRISUL',
-  'SUSEP',
-  'Theatro Municipal',
-];
-
-const slugify = (valor) =>
-  String(valor)
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
 /**
- * Renderiza a marca. Se houver arquivo de logo mapeado, mostra a imagem;
- * se a imagem falhar, cai para o nome em texto (nunca um card vazio).
+ * Célula da parede de marcas. Com logo: imagem em tons de cinza que ganha
+ * cor no hover. Sem logo (ou se o arquivo falhar): wordmark tipográfico —
+ * nunca uma caixa vazia.
  */
-function Marca({ nome, destaque = false }) {
+function CelulaMarca({ nome, rotulo, area, logo }) {
   const [falhou, setFalhou] = useState(false);
-  const arquivo = LOGOS[slugify(nome)];
-
-  if (arquivo && !falhou) {
-    return (
-      <img
-        src={asset(arquivo)}
-        alt={nome}
-        title={nome}
-        loading="lazy"
-        decoding="async"
-        onError={() => setFalhou(true)}
-        className="mx-auto h-14 w-auto max-w-[180px] object-contain transition duration-300 hover:scale-[1.04] sm:h-16"
-      />
-    );
-  }
+  const temLogo = logo && !falhou;
 
   return (
-    <span
+    <li
       title={nome}
-      className={
-        destaque
-          ? 'block text-center text-[13px] font-semibold uppercase leading-tight tracking-[0.08em] text-slate-500 transition-colors hover:text-[#0B4F8F] sm:text-sm'
-          : 'text-sm leading-snug text-slate-700'
-      }
+      className="group relative flex min-h-[6.5rem] flex-col items-center justify-center gap-3 bg-white px-5 py-6 text-center transition-colors duration-300 hover:bg-slate-50 sm:min-h-[8.5rem]"
     >
-      {nome}
-    </span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-6 top-0 h-[2px] origin-left scale-x-0 bg-[#B08954] transition-transform duration-300 group-hover:scale-x-100"
+      />
+      {temLogo ? (
+        <span className="flex h-12 w-full items-center justify-center sm:h-14">
+          <img
+            src={asset(logo)}
+            alt={nome}
+            loading="lazy"
+            decoding="async"
+            onError={() => setFalhou(true)}
+            className="max-h-full w-auto max-w-[150px] object-contain opacity-75 mix-blend-multiply grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+          />
+        </span>
+      ) : (
+        <span className="flex h-12 items-center text-lg font-semibold leading-tight tracking-tight text-slate-600 transition-colors duration-300 group-hover:text-[#0B4F8F] sm:h-14 sm:text-xl">
+          {rotulo || nome}
+        </span>
+      )}
+      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">{area}</span>
+    </li>
   );
 }
 
@@ -232,6 +195,7 @@ export default function Clientes() {
   }, []);
 
   const total = SETORES.reduce((soma, setor) => soma + setor.clientes.length, 0);
+  const ufsAtendidas = new Set(LOCALIDADES.map((l) => l.uf)).size;
 
   return (
     <div className="bg-white">
@@ -248,37 +212,68 @@ export default function Clientes() {
             patrimonial e avaliações que precisam resistir à auditoria e à contabilidade.
           </p>
 
-          <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-3">
-            <div>
-              <dt className="text-xs font-medium uppercase tracking-wider text-slate-500">Organizações</dt>
-              <dd className="mt-1 text-3xl font-semibold text-[#0B4F8F]">+{total}</dd>
-            </div>
-            <div>
-              <dt className="text-xs font-medium uppercase tracking-wider text-slate-500">Setores</dt>
-              <dd className="mt-1 text-3xl font-semibold text-[#0B4F8F]">{SETORES.length}</dd>
-            </div>
-            <div>
-              <dt className="text-xs font-medium uppercase tracking-wider text-slate-500">Atuação</dt>
-              <dd className="mt-1 text-3xl font-semibold text-[#0B4F8F]">Nacional</dd>
-            </div>
+          <dl className="mt-10 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4">
+            {[
+              ['Organizações', `+${total}`],
+              ['Setores', SETORES.length],
+              ['Estados + DF', ufsAtendidas],
+              ['Regiões do país', '5 de 5'],
+            ].map(([rotulo, valor]) => (
+              <div key={rotulo} className="border-l-2 border-[#B08954] pl-4">
+                <dd className="text-3xl font-semibold text-[#0B4F8F]">{valor}</dd>
+                <dt className="mt-1 text-xs font-medium uppercase tracking-wider text-slate-500">{rotulo}</dt>
+              </div>
+            ))}
           </dl>
+
+          <a
+            href="#mapa-atuacao"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('mapa-atuacao')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-[#0B4F8F] hover:text-[#093f72]"
+          >
+            Ver onde já atuamos
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
       </section>
 
-      {/* FAIXA DE MARCAS */}
+      {/* PAREDE DE MARCAS */}
       <section aria-labelledby="destaques" className="border-b border-slate-100">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-          <h2 id="destaques" className="text-center text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
-            Marcas que confiaram na gente
-          </h2>
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 id="destaques" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#B08954]">
+              Marcas que confiaram na gente
+            </h2>
+            <p className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+              Estatais, reguladores e grandes operadores de infraestrutura
+            </p>
+            <p className="mt-3 text-slate-600">
+              Organizações sujeitas a TCU, CGU, auditoria independente e normas contábeis — onde o
+              inventário e a avaliação precisam estar corretos na primeira vez.
+            </p>
+          </div>
 
-          <ul className="mt-10 grid grid-cols-2 items-center gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-            {DESTAQUES.map((nome) => (
-              <li key={nome} className="flex min-h-[3.5rem] items-center justify-center">
-                <Marca nome={nome} destaque />
-              </li>
+          <ul className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-3 lg:grid-cols-6">
+            {DESTAQUES.map((marca) => (
+              <CelulaMarca key={marca.nome} {...marca} />
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* MAPA DE ATUAÇÃO */}
+      <section
+        id="mapa-atuacao"
+        aria-labelledby="mapa"
+        className="scroll-mt-24 border-b border-slate-100 bg-gradient-to-b from-white to-slate-50"
+      >
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <MapaAtuacao />
         </div>
       </section>
 
@@ -306,7 +301,7 @@ export default function Clientes() {
                   {setor.clientes.map((nome) => (
                     <li key={nome} className="flex gap-2">
                       <span aria-hidden="true" className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-[#B08954]" />
-                      <Marca nome={nome} />
+                      <span className="text-sm leading-snug text-slate-700">{nome}</span>
                     </li>
                   ))}
                 </ul>
