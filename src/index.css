@@ -1,1 +1,26 @@
 @tailwind base; @tailwind components; @tailwind utilities;
+/* Mapa de atuação (/clientes): halo pulsante nas cidades com mais projetos */
+@keyframes mapa-pulso {
+  0%, 100% { transform: scale(0.85); opacity: 0.35; }
+  50% { transform: scale(1.25); opacity: 0.08; }
+}
+.mapa-pulso {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mapa-pulso 2.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mapa-pulso { animation: none; }
+}
+
+/* Faixa de logos de clientes (Home) */
+@keyframes faixa-logos {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.faixa-logos-trilho { animation: faixa-logos 45s linear infinite; }
+.faixa-logos:hover .faixa-logos-trilho { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .faixa-logos-trilho { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+  .faixa-logos-trilho > [aria-hidden="true"] { display: none; }
+}

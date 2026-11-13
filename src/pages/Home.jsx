@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import FaixaLogos from '../components/clientes/FaixaLogos.jsx'
 
 /* ────────────────────────────────────────────────────────────────────────────
    Integrade Consulting — página inicial
@@ -578,6 +579,19 @@ export default function Home() {
             <PainelIfLow />
           </div>
         </div>
+      </section>
+
+      {/* ── 2b. CLIENTES (faixa de logos) ────────────────────────────────── */}
+      <section aria-labelledby="titulo-clientes-home" className="border-t border-slate-100 bg-white py-10 sm:py-12">
+        <div className="mx-auto mb-7 flex w-full max-w-6xl flex-col items-center gap-2 px-5 text-center sm:flex-row sm:justify-between sm:px-8 sm:text-left">
+          <h2 id="titulo-clientes-home" className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 sm:text-xs">
+            Organizações que confiaram na Integrade
+          </h2>
+          <a href="#/clientes" className="text-xs font-semibold hover:underline" style={{ color: AZUL }}>
+            Ver todos os clientes e o mapa de atuação →
+          </a>
+        </div>
+        <FaixaLogos />
       </section>
 
       {/* ── 3. DESAFIOS DO CLIENTE ───────────────────────────────────────── */}
