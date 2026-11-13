@@ -4,6 +4,8 @@ import { HashRouter, Routes, Route, NavLink, useLocation } from 'react-router-do
 import BrandLogo from './components/BrandLogo.jsx';
 import SafeBoundary from './components/SafeBoundary.jsx';
 import { pickPage } from './lib/pickPage.js';
+import { EMPRESA } from './data/empresa.js';
+import WhatsAppButton from './components/WhatsAppButton.jsx';
 
 /* Páginas resolvidas de forma tolerante: aceita `export default` ou
    `export function Nome()`. Se uma página não resolver, a rota mostra um
@@ -15,6 +17,7 @@ import * as ClientesModule from './pages/Clientes.jsx';
 import * as TecnologiasModule from './pages/Tecnologias.jsx';
 import * as ContatoModule from './pages/Contato.jsx';
 import * as PrivacidadeModule from './pages/Privacidade.jsx';
+import * as CalculadoraModule from './pages/Calculadora.jsx';
 
 const Home = pickPage(HomeModule, 'Home');
 const Sobre = pickPage(SobreModule, 'Sobre');
@@ -23,6 +26,7 @@ const Clientes = pickPage(ClientesModule, 'Clientes');
 const Tecnologias = pickPage(TecnologiasModule, 'Tecnologias');
 const Contato = pickPage(ContatoModule, 'Contato');
 const Privacidade = pickPage(PrivacidadeModule, 'Privacidade');
+const Calculadora = pickPage(CalculadoraModule, 'Calculadora');
 
 const NAV = [
   { to: '/solucoes', label: 'Soluções' },
@@ -40,6 +44,7 @@ const TITLES = {
   '/tecnologias': 'iFlow — Gestão de Ativos Empresariais | Integrade Consulting',
   '/contato': 'Fale com um especialista | Integrade Consulting',
   '/privacidade': 'Política de Privacidade | Integrade Consulting',
+  '/calculadora-depreciacao': 'Calculadora de depreciação grátis | Integrade Consulting',
 };
 
 const linkBase =
@@ -150,27 +155,64 @@ function Header() {
 }
 
 function Footer() {
+  const link =
+    'text-slate-400 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white';
+
   return (
     <footer className="mt-24 border-t border-slate-800 bg-[#0B1F33] text-slate-300">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
-        <div className="lg:col-span-2">
+      {/* Faixa de conversão — presente em todas as páginas */}
+      <div className="border-b border-slate-800 bg-[#0B3B66]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 sm:px-6 lg:px-8 xl:flex-row xl:items-center xl:justify-between">
+          <div>
+            <p className="text-lg font-bold text-white">Patrimônio sob controle, da plaqueta ao sistema.</p>
+            <p className="mt-1 text-sm text-slate-300">
+              Plaquetas, equipamentos, inventário, avaliações, iFlow e outsourcing com um único fornecedor.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <NavLink
+              to="/contato"
+              className="inline-flex whitespace-nowrap items-center justify-center rounded-lg bg-[#B08968] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#9a7556] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Solicitar proposta
+            </NavLink>
+            <a
+              href={EMPRESA.telefoneHref}
+              className="inline-flex whitespace-nowrap items-center justify-center rounded-lg border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Ligar {EMPRESA.telefone}
+            </a>
+            <a
+              href={EMPRESA.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex whitespace-nowrap items-center justify-center rounded-lg bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1ebe5b] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8">
+        <div className="lg:col-span-4">
           {/* Versão branca do logo sobre fundo escuro */}
           <BrandLogo variant="white" className="h-9 w-auto max-w-[220px]" />
           <p className="mt-5 max-w-md text-sm leading-relaxed text-slate-400">
             Controle patrimonial, avaliações de bens móveis e imóveis e tecnologia para gestão de ativos.
             Uma empresa do ecossistema Integrade.
           </p>
+          <p className="mt-4 inline-flex rounded-full border border-slate-700 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#D9BFA3]">
+            Desde {EMPRESA.fundacao} · Atendemos licitações
+          </p>
         </div>
 
-        <div>
+        <div className="lg:col-span-2">
           <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Navegação</h2>
           <ul className="mt-4 space-y-2 text-sm">
             {NAV.map((item) => (
               <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  className="text-slate-400 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                >
+                <NavLink to={item.to} className={link}>
                   {item.label}
                 </NavLink>
               </li>
@@ -178,32 +220,44 @@ function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className="lg:col-span-2">
           <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Institucional</h2>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <NavLink
-                to="/privacidade"
-                className="text-slate-400 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                Política de privacidade
-              </NavLink>
+              <NavLink to="/calculadora-depreciacao" className={link}>Calculadora de depreciação</NavLink>
             </li>
             <li>
-              <NavLink
-                to="/contato"
-                className="text-slate-400 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                Fale com um especialista
-              </NavLink>
+              <NavLink to="/privacidade" className={link}>Política de privacidade</NavLink>
+            </li>
+            <li>
+              <NavLink to="/contato" className={link}>Fale com um especialista</NavLink>
             </li>
           </ul>
+        </div>
+
+        <div className="lg:col-span-4">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Contato</h2>
+          <address className="mt-4 space-y-3 text-sm not-italic">
+            <p><a href={EMPRESA.telefoneHref} className={link}>Tel. {EMPRESA.telefone}</a></p>
+            <p><a href={EMPRESA.whatsappHref} target="_blank" rel="noopener noreferrer" className={link}>WhatsApp {EMPRESA.whatsapp}</a></p>
+            <p><a href={`mailto:${EMPRESA.email}`} className={link}>{EMPRESA.email}</a></p>
+            <p>
+              <a href={EMPRESA.mapaHref} target="_blank" rel="noopener noreferrer" className={link}>
+                {EMPRESA.endereco.linha1}
+                <br />
+                {EMPRESA.endereco.linha2}
+                <br />
+                CEP {EMPRESA.endereco.cep}
+              </a>
+            </p>
+          </address>
         </div>
       </div>
 
       <div className="border-t border-slate-800">
-        <div className="mx-auto max-w-7xl px-4 py-6 text-xs text-slate-500 sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} Integrade Consulting. Todos os direitos reservados.
+        <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pb-24 pt-6 text-xs md:pb-6 text-slate-500 sm:px-6 md:flex-row md:justify-between md:pr-56 lg:px-8 lg:pr-56">
+          <span>© {new Date().getFullYear()} Integrade Consulting. Todos os direitos reservados.</span>
+          <span>{EMPRESA.razaoSocial} · CNPJ {EMPRESA.cnpj}</span>
         </div>
       </div>
     </footer>
@@ -242,12 +296,14 @@ export default function App() {
               <Route path="/tecnologias" element={<Tecnologias />} />
               <Route path="/contato" element={<Contato />} />
               <Route path="/privacidade" element={<Privacidade />} />
+              <Route path="/calculadora-depreciacao" element={<Calculadora />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </SafeBoundary>
         </main>
 
         <Footer />
+        <WhatsAppButton />
       </div>
     </HashRouter>
   );
