@@ -319,7 +319,7 @@ export default function Clientes() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-600">
             Conte o desafio da sua empresa e conversamos sobre controle patrimonial, avaliações ou
-            sobre a plataforma iFlow.
+            sobre a plataforma Integrade One.
           </p>
           <a
             href="#/contato"

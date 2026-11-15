@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 /* ============================================================================
    Camada visual local — composições em SVG.
    Não dependem de rede: são o fallback obrigatório de qualquer fotografia e
-   podem ser usadas sozinhas. Nenhuma delas simula captura de tela do iFlow.
+   podem ser usadas sozinhas. Nenhuma delas simula captura de tela do Integrade One.
    Nenhum número, gráfico com dado fictício ou pessoa genérica é representado.
    ============================================================================ */
 
@@ -248,8 +248,8 @@ export function PhotoFrame({
   )
 }
 
-/* ------------------------------------------- DIAGRAMA CONCEITUAL iFLOW --- */
-/* Diagrama esquemático. NÃO representa a interface do iFlow. */
+/* --------------------------------------- DIAGRAMA CONCEITUAL INTEGRADE ONE --- */
+/* Diagrama esquemático. NÃO representa a interface do Integrade One. */
 export function AssetDiagram({ className = '' }) {
   const no = (x, y, w, h, label) => (
     <g>
@@ -281,7 +281,7 @@ export function AssetDiagram({ className = '' }) {
       viewBox="0 0 900 520"
       className={className}
       role="img"
-      aria-label="Diagrama conceitual: o iFlow no centro, conectado a patrimônio e bens móveis, gestão contábil patrimonial, bens imóveis, manutenção de ativos, projetos e interfaces com outros ERPs"
+      aria-label="Diagrama conceitual: o Integrade One no centro, conectado a patrimônio e bens móveis, gestão contábil patrimonial, bens imóveis, manutenção de ativos, projetos e interfaces com outros ERPs"
     >
       <defs>
         <linearGradient id="diag-nucleo" x1="0" y1="0" x2="1" y2="1">
@@ -307,8 +307,8 @@ export function AssetDiagram({ className = '' }) {
       </g>
 
       <rect x="375" y="228" width="150" height="80" rx="14" fill="url(#diag-nucleo)" />
-      <text x="450" y="262" textAnchor="middle" fontSize="24" fill="#FFFFFF" fontWeight="700">
-        iFlow
+      <text x="450" y="258" textAnchor="middle" fontSize="16" fill="#FFFFFF" fontWeight="700">
+        Integrade One
       </text>
       <text x="450" y="286" textAnchor="middle" fontSize="12" fill="#BFD4E6">
         gestão de ativos

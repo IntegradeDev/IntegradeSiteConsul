@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { EMPRESA, mailtoComercial } from '../data/empresa.js'
 
 /* ────────────────────────────────────────────────────────────────────────────
-   Calculadora de depreciação — ferramenta gratuita (isca para o iFlow).
+   Calculadora de depreciação — ferramenta gratuita (isca para o Integrade One).
    Método linear (quotas constantes), mês a mês, a partir do mês de início de
    uso. Base depreciável = custo − valor residual (CPC 27).
    Taxas fiscais de referência: IN RFB nº 1.700/2017, Anexo III.
-   Gatilhos: (1) "faça isso para todo o patrimônio" → demo iFlow;
+   Gatilhos: (1) "faça isso para todo o patrimônio" → demo Integrade One;
              (2) vida útil fiscal ≠ econômica → laudo de avaliação;
              (3) receber a simulação por e-mail → contato comercial.
    ──────────────────────────────────────────────────────────────────────────── */
@@ -318,22 +318,22 @@ export default function Calculadora() {
               </div>
             )}
 
-            {/* GATILHO iFLOW */}
+            {/* GATILHO INTEGRADE ONE */}
             <div className="mt-8 rounded-2xl p-6 text-white sm:p-8" style={{ background: `linear-gradient(120deg, ${AZUL}, #12507F)` }}>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3CDB6]">iFlow</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3CDB6]">Integrade One</p>
               <h2 className="mt-2 text-xl font-bold sm:text-2xl">
                 Um bem na calculadora. E os outros milhares?
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-200">
-                O iFlow calcula a depreciação de todo o patrimônio, mês a mês, com histórico de
+                O Integrade One calcula a depreciação de todo o patrimônio, mês a mês, com histórico de
                 movimentações, baixas e transferências — e relatórios prontos para o fechamento.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  to="/tecnologias"
+                  to="/solucoes"
                   className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-[#0B3B66] hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
-                  Conhecer o iFlow
+                  Conhecer o Integrade One
                 </Link>
                 <a
                   href={hrefEmail}

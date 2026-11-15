@@ -6,8 +6,8 @@ import { whatsappComercial } from '../data/empresa.js'
    A mensagem inicial muda conforme a página, para o comercial saber
    de onde veio o contato. */
 const MENSAGENS = {
-  '/solucoes': 'Olá! Vi as soluções no site da Integrade e quero um orçamento.',
-  '/tecnologias': 'Olá! Quero conhecer o iFlow e agendar uma demonstração.',
+  '/solucoes': 'Olá! Vi as soluções no site da Integrade, incluindo o Integrade One, e quero um orçamento.',
+  '/tecnologias': 'Olá! Quero conhecer as soluções de identificação de ativos (RFID, QR-Code e código de barras).',
   '/calculadora-depreciacao': 'Olá! Usei a calculadora de depreciação e quero falar sobre o controle do meu patrimônio.',
   '/contato': 'Olá! Quero falar com um especialista da Integrade.',
 }

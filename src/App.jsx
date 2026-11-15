@@ -12,6 +12,7 @@ import WhatsAppButton from './components/WhatsAppButton.jsx';
    aviso visível em vez de derrubar o aplicativo. */
 import * as HomeModule from './pages/Home.jsx';
 import * as SobreModule from './pages/Sobre.jsx';
+import * as ServicosModule from './pages/Servicos.jsx';
 import * as SolucoesModule from './pages/Solucoes.jsx';
 import * as ClientesModule from './pages/Clientes.jsx';
 import * as TecnologiasModule from './pages/Tecnologias.jsx';
@@ -21,6 +22,7 @@ import * as CalculadoraModule from './pages/Calculadora.jsx';
 
 const Home = pickPage(HomeModule, 'Home');
 const Sobre = pickPage(SobreModule, 'Sobre');
+const Servicos = pickPage(ServicosModule, 'Servicos');
 const Solucoes = pickPage(SolucoesModule, 'Solucoes');
 const Clientes = pickPage(ClientesModule, 'Clientes');
 const Tecnologias = pickPage(TecnologiasModule, 'Tecnologias');
@@ -29,8 +31,8 @@ const Privacidade = pickPage(PrivacidadeModule, 'Privacidade');
 const Calculadora = pickPage(CalculadoraModule, 'Calculadora');
 
 const NAV = [
+  { to: '/servicos', label: 'Serviços' },
   { to: '/solucoes', label: 'Soluções' },
-  { to: '/tecnologias', label: 'iFlow' },
   { to: '/clientes', label: 'Clientes' },
   { to: '/sobre', label: 'Sobre' },
   { to: '/contato', label: 'Contato' },
@@ -39,9 +41,10 @@ const NAV = [
 const TITLES = {
   '/': 'Controle Patrimonial e Avaliações | Integrade Consulting',
   '/sobre': 'Sobre a Integrade Consulting | Controle Patrimonial',
+  '/servicos': 'Serviços de Controle Patrimonial | Integrade Consulting',
   '/solucoes': 'Controle Patrimonial e Avaliações | Integrade Consulting',
   '/clientes': 'Clientes | Integrade Consulting',
-  '/tecnologias': 'iFlow — Gestão de Ativos Empresariais | Integrade Consulting',
+  '/tecnologias': 'Identificação de Ativos — RFID, QR-Code e Código de Barras | Integrade Consulting',
   '/contato': 'Fale com um especialista | Integrade Consulting',
   '/privacidade': 'Política de Privacidade | Integrade Consulting',
   '/calculadora-depreciacao': 'Calculadora de depreciação grátis | Integrade Consulting',
@@ -166,7 +169,7 @@ function Footer() {
           <div>
             <p className="text-lg font-bold text-white">Patrimônio sob controle, da plaqueta ao sistema.</p>
             <p className="mt-1 text-sm text-slate-300">
-              Plaquetas, equipamentos, inventário, avaliações, iFlow e outsourcing com um único fornecedor.
+              Plaquetas, equipamentos, inventário, avaliações, Integrade One e outsourcing com um único fornecedor.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -291,6 +294,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
+              <Route path="/servicos" element={<Servicos />} />
               <Route path="/solucoes" element={<Solucoes />} />
               <Route path="/clientes" element={<Clientes />} />
               <Route path="/tecnologias" element={<Tecnologias />} />

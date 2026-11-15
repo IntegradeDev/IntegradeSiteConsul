@@ -8,9 +8,9 @@
  *  - logo:   arquivo em public/images/clientes/ (null = mostra o wordmark)
  *
  * Logos obtidos no Wikimedia Commons ou no site oficial de cada organização
- * (Porto de Santos, Theatro Municipal de São Paulo, EMAP). Grupo CCR (hoje
- * Motiva), SUSEP e Hospital Alemão Oswaldo Cruz ainda sem arquivo — basta
- * salvar o PNG/SVG na pasta e preencher `logo`.
+ * (Porto de Santos, Theatro Municipal de São Paulo, EMAP). SUSEP e Hospital
+ * Alemão Oswaldo Cruz ainda sem arquivo livre encontrado — basta salvar o
+ * PNG/SVG na pasta e preencher `logo` assim que houver um.
  */
 export const DESTAQUES = [
   { nome: 'Eletrobras', area: 'Energia', logo: 'images/clientes/eletrobras.png' },
@@ -22,7 +22,7 @@ export const DESTAQUES = [
   { nome: 'SABESP', area: 'Saneamento', logo: 'images/clientes/sabesp.svg' },
   { nome: 'Porto de Santos', area: 'Portos', logo: 'images/clientes/porto-de-santos.png' },
   { nome: 'EMAP', area: 'Portos', logo: 'images/clientes/emap.svg' },
-  { nome: 'Grupo CCR', area: 'Infraestrutura', logo: null },
+  { nome: 'Grupo CCR', area: 'Infraestrutura', logo: 'images/clientes/grupo-ccr.svg' },
   { nome: 'BANRISUL', area: 'Financeiro', logo: 'images/clientes/banrisul.svg' },
   { nome: 'SUSEP', area: 'Regulação', logo: null },
   { nome: 'SENAI — CETIQT', rotulo: 'SENAI CETIQT', area: 'Educação', logo: 'images/clientes/senai.png' },

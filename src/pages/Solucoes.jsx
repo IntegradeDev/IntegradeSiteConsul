@@ -8,10 +8,10 @@ import FaixaLogos from '../components/clientes/FaixaLogos.jsx'
    Estratégia da página (referências de mercado: fornecedores "ponta a ponta"
    que vendem pacotes de etiqueta + coletor + software e inventário recorrente
    terceirizado; SaaS patrimonial vendido como despesa operacional, sem licença):
-     1. Herói com dupla CTA (especialista / iFlow)
+     1. Herói com dupla CTA (especialista / Integrade One)
      2. "Qual é o seu desafio?" — seletor por dor, cada uma com CTA própria
      3. Catálogo dos 6 pilares, cada um com CTA de orçamento direcionada
-     4. Faixa-gatilho do iFlow (o inventário acabou — e agora?)
+     4. Exploração do Integrade One — suíte e módulos (o inventário acabou — e agora?)
      5. Pacotes que combinam produto + serviço + SaaS
      6. Conformidade normativa (gatilho de urgência legal/contábil)
      7. Como funciona + CTA final com contatos diretos
@@ -73,6 +73,58 @@ const ICONS = {
       <path d="m8.4 12.1 2.6 2.6 4.8-4.9" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
     </>
   ),
+  box: (
+    <>
+      <path d="M12 2 3 6.4v11.2L12 22l9-4.4V6.4Z" opacity=".3" />
+      <path d="M12 2 3 6.4l9 4.5 9-4.5Z" opacity=".95" />
+      <path d="M12 10.9V22l9-4.4V6.4Z" opacity=".6" />
+    </>
+  ),
+  building: (
+    <>
+      <rect x="2.5" y="9" width="7.5" height="12.5" rx="2" opacity=".45" />
+      <rect x="11" y="2.5" width="10.5" height="19" rx="2.5" opacity=".95" />
+      <rect x="14" y="6" width="2" height="2" rx=".7" fill="#fff" opacity=".8" />
+      <rect x="17.5" y="6" width="2" height="2" rx=".7" fill="#fff" opacity=".8" />
+      <rect x="14" y="10" width="2" height="2" rx=".7" fill="#fff" opacity=".8" />
+      <rect x="17.5" y="10" width="2" height="2" rx=".7" fill="#fff" opacity=".8" />
+    </>
+  ),
+  wrench: (
+    <path
+      d="M20.6 3.4a5.6 5.6 0 0 1-7.1 7.1l-7.8 7.8a2.4 2.4 0 0 1-3.4-3.4l7.8-7.8a5.6 5.6 0 0 1 7.1-7.1l-3.1 3.1.7 2.7 2.7.7 3.1-3.1Z"
+      opacity=".95"
+    />
+  ),
+  ledger: (
+    <>
+      <rect x="4" y="2.5" width="16" height="19" rx="3.2" opacity=".3" />
+      <rect x="7.5" y="6.5" width="9" height="2" rx="1" opacity=".95" />
+      <rect x="7.5" y="10.5" width="9" height="2" rx="1" opacity=".7" />
+      <rect x="7.5" y="14.5" width="5.5" height="2" rx="1" opacity=".5" />
+    </>
+  ),
+  layers: (
+    <>
+      <path d="M12 2 2.5 6.8 12 11.6l9.5-4.8Z" opacity=".95" />
+      <path d="m2.5 11.5 9.5 4.8 9.5-4.8" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" opacity=".6" />
+      <path d="m2.5 16.5 9.5 4.8 9.5-4.8" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" opacity=".32" />
+    </>
+  ),
+  link: (
+    <>
+      <rect x="2" y="8.5" width="9.6" height="7" rx="3.5" opacity=".45" />
+      <rect x="12.4" y="8.5" width="9.6" height="7" rx="3.5" opacity=".95" />
+    </>
+  ),
+  modules: (
+    <>
+      <rect x="2.5" y="2.5" width="8.5" height="8.5" rx="2.6" opacity=".95" />
+      <rect x="13" y="2.5" width="8.5" height="8.5" rx="2.6" opacity=".45" />
+      <rect x="2.5" y="13" width="8.5" height="8.5" rx="2.6" opacity=".45" />
+      <rect x="13" y="13" width="8.5" height="8.5" rx="2.6" opacity=".95" />
+    </>
+  ),
   check: (
     <path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
   ),
@@ -113,7 +165,14 @@ function Tile({ name }) {
 const focus =
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0B4F8F] focus-visible:ring-offset-2'
 
-function Cta({ to, href, children, variant = 'primary', className = '' }) {
+function scrollToId(id) {
+  return (e) => {
+    e.preventDefault()
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
+function Cta({ to, href, scrollTo, children, variant = 'primary', className = '' }) {
   const base = `inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition ${focus} ${className}`
   const styles = {
     primary: 'bg-[#0B3B66] text-white hover:bg-[#093054]',
@@ -133,6 +192,12 @@ function Cta({ to, href, children, variant = 'primary', className = '' }) {
       <Link to={to} className={`${base} ${styles[variant]}`}>
         {content}
       </Link>
+    )
+  if (scrollTo)
+    return (
+      <a href={`#${scrollTo}`} onClick={scrollToId(scrollTo)} className={`${base} ${styles[variant]}`}>
+        {content}
+      </a>
     )
   return (
     <a href={href} className={`${base} ${styles[variant]}`}>
@@ -157,13 +222,14 @@ const PILARES = [
       'Personalização com marca, brasão ou dados da instituição',
     ],
     cta: { label: 'Orçar plaquetas e etiquetas', assunto: 'Orçamento — Plaquetas e etiquetas patrimoniais' },
+    extraLink: { label: 'Ver tecnologias de identificação', to: '/tecnologias' },
   },
   {
     id: 'equipamentos',
     icon: 'device',
     kicker: 'Produtos',
     title: 'Equipamentos e insumos',
-    desc: 'Hardware homologado para identificar, coletar e conferir ativos, já configurado para trabalhar com o iFlow.',
+    desc: 'Hardware homologado para identificar, coletar e conferir ativos, já configurado para trabalhar com o Integrade One.',
     items: [
       'Coletores de dados Android com leitor 1D/2D',
       'Leitores RFID portáteis, fixos, antenas e portais',
@@ -204,11 +270,11 @@ const PILARES = [
     cta: { label: 'Solicitar avaliação', assunto: 'Proposta — Avaliação de ativos e laudos' },
   },
   {
-    id: 'sistemas',
+    id: 'integrade-one',
     icon: 'cloud',
     kicker: 'Software · SaaS',
-    title: 'iFlow — gestão de ativos em nuvem',
-    desc: 'O inventário é uma foto; o iFlow mantém o filme. Plataforma SaaS para gerir patrimônio, movimentações, depreciação e manutenção no dia a dia.',
+    title: 'Integrade One — gestão de ativos em nuvem',
+    desc: 'O inventário é uma foto; o Integrade One mantém o filme. Suíte para gerir patrimônio, movimentações, depreciação e manutenção no dia a dia.',
     items: [
       'Patrimônio, bens móveis e imóveis em um só lugar',
       'Gestão contábil patrimonial e cálculo de depreciação',
@@ -216,7 +282,7 @@ const PILARES = [
       'Transferências, baixas e termos de responsabilidade',
       'Integração com ERPs e sistemas contábeis',
     ],
-    cta: { label: 'Agendar demonstração do iFlow', to: '/tecnologias' },
+    cta: { label: 'Agendar demonstração', to: '/contato' },
     destaque: true,
   },
   {
@@ -227,7 +293,7 @@ const PILARES = [
     desc: 'Sua área de patrimônio operada pela Integrade: equipe, processo, sistema e equipamentos sob um único contrato, com previsibilidade de custo.',
     items: [
       'Equipe residente ou volante dedicada ao seu patrimônio',
-      'Operação contínua do iFlow: entradas, transferências e baixas',
+      'Operação contínua do Integrade One: entradas, transferências e baixas',
       'Inventários periódicos e conciliação mensal com a contabilidade',
       'Equipamentos e etiquetas inclusos no contrato',
       'Indicadores e relatórios gerenciais para a gestão',
@@ -251,8 +317,8 @@ const DESAFIOS = [
     label: 'Fazer o inventário',
     titulo: 'Precisa saber o que existe, onde está e em que estado?',
     texto:
-      'Levantamento físico completo, conciliação com a contabilidade e tratamento das divergências. Ao final, a base já sobe saneada para o iFlow.',
-    solucoes: ['servicos', 'sistemas'],
+      'Levantamento físico completo, conciliação com a contabilidade e tratamento das divergências. Ao final, a base já sobe saneada para o Integrade One.',
+    solucoes: ['servicos', 'integrade-one'],
     cta: { label: 'Solicitar proposta de inventário', assunto: 'Proposta — Inventário patrimonial' },
   },
   {
@@ -269,9 +335,9 @@ const DESAFIOS = [
     label: 'Gerir no dia a dia',
     titulo: 'O controle vive em planilhas e se desatualiza a cada mês?',
     texto:
-      'Com o iFlow, cada entrada, transferência e baixa fica registrada, com depreciação calculada e histórico auditável. Coleta pelo celular ou coletor.',
-    solucoes: ['sistemas', 'equipamentos'],
-    cta: { label: 'Ver o iFlow em ação', to: '/tecnologias' },
+      'Com o Integrade One, cada entrada, transferência e baixa fica registrada, com depreciação calculada e histórico auditável. Coleta pelo celular ou coletor.',
+    solucoes: ['integrade-one', 'equipamentos'],
+    cta: { label: 'Conhecer o Integrade One', to: '/contato' },
   },
   {
     id: 'terceirizar',
@@ -279,7 +345,7 @@ const DESAFIOS = [
     titulo: 'Quer o patrimônio sob controle sem montar uma equipe?',
     texto:
       'Assumimos a operação completa — pessoas, processo, sistema e equipamentos — com custo mensal previsível e um único responsável.',
-    solucoes: ['outsourcing', 'sistemas'],
+    solucoes: ['outsourcing', 'integrade-one'],
     cta: { label: 'Conversar sobre outsourcing', assunto: 'Proposta — Outsourcing de gestão patrimonial' },
   },
 ]
@@ -291,7 +357,7 @@ const PACOTES = [
     inclui: [
       'Plaquetas ou etiquetas personalizadas',
       'Coletor ou leitor (venda ou locação)',
-      'Aplicativo de coleta iFlow',
+      'Aplicativo de coleta Integrade One',
       'Treinamento da equipe',
     ],
     cta: { label: 'Montar meu kit', assunto: 'Pacote Identificação — kit plaquetas + coletor + app' },
@@ -303,21 +369,21 @@ const PACOTES = [
       'Inventário físico e emplaquetamento',
       'Conciliação físico × contábil',
       'Avaliação e laudos (valor justo / vida útil)',
-      'Carga da base saneada no iFlow',
+      'Carga da base saneada no Integrade One',
     ],
-    cta: { label: 'Solicitar proposta', assunto: 'Pacote Projeto completo — inventário + avaliação + iFlow' },
+    cta: { label: 'Solicitar proposta', assunto: 'Pacote Projeto completo — inventário + avaliação + Integrade One' },
     recomendado: true,
   },
   {
     nome: 'Gestão contínua',
     para: 'Para manter tudo em dia, mês a mês.',
     inclui: [
-      'Assinatura iFlow',
+      'Assinatura Integrade One',
       'Outsourcing da operação patrimonial',
       'Inventários rotativos programados',
       'Etiquetas e equipamentos inclusos',
     ],
-    cta: { label: 'Falar com um especialista', assunto: 'Pacote Gestão contínua — iFlow + outsourcing' },
+    cta: { label: 'Falar com um especialista', assunto: 'Pacote Gestão contínua — Integrade One + outsourcing' },
   },
 ]
 
@@ -334,8 +400,8 @@ const NORMAS = [
 const ETAPAS = [
   { n: '01', t: 'Diagnóstico', d: 'Entendemos seu parque, seu processo e suas obrigações contábeis.' },
   { n: '02', t: 'Proposta sob medida', d: 'Combinamos produtos, serviços e software só no que você precisa.' },
-  { n: '03', t: 'Execução', d: 'Identificação, inventário, avaliação e carga da base no iFlow.' },
-  { n: '04', t: 'Gestão contínua', d: 'Patrimônio atualizado no iFlow — por você ou por nós.' },
+  { n: '03', t: 'Execução', d: 'Identificação, inventário, avaliação e carga da base no Integrade One.' },
+  { n: '04', t: 'Gestão contínua', d: 'Patrimônio atualizado no Integrade One — por você ou por nós.' },
 ]
 
 const DIFERENCIAIS = [
@@ -352,8 +418,23 @@ const DIFERENCIAIS = [
   {
     icon: 'cloud',
     t: 'Do projeto ao SaaS',
-    d: 'Todo projeto termina com a base carregada no iFlow, para o controle não se perder depois do inventário.',
+    d: 'Todo projeto termina com a base carregada no Integrade One, para o controle não se perder depois do inventário.',
   },
+]
+
+/* Módulos do Integrade One — suíte de gestão de ativos (EAM) do ecossistema
+   Integrade. Descrições resumidas; escopo e nomes confirmados em demonstração,
+   conforme a necessidade da operação. */
+const MODULOS_INTEGRADE_ONE = [
+  { icon: 'box', nome: 'One InPat', desc: 'Gestão patrimonial — origem Unispat, cadastro e acompanhamento dos bens.' },
+  { icon: 'clipboard', nome: 'One Asset', desc: 'Físico e inventário: coleta, conferência e atualização contínua.' },
+  { icon: 'ledger', nome: 'One Accounting', desc: 'Ativo imobilizado, depreciação e diálogo com a contabilidade.' },
+  { icon: 'wrench', nome: 'One Maintenance', desc: 'Manutenção dos ativos cadastrados e suas rotinas.' },
+  { icon: 'building', nome: 'One Properties', desc: 'Bens imóveis, suas características e vínculos com a operação.' },
+  { icon: 'chart', nome: 'One Valuation', desc: 'Avaliações integradas à base patrimonial.' },
+  { icon: 'link', nome: 'One Connect', desc: 'Interfaces e integração de dados com outros ERPs.' },
+  { icon: 'layers', nome: 'One Transfer', desc: 'Transferências, baixas e termos de responsabilidade.' },
+  { icon: 'modules', nome: 'One Apps', desc: 'Aplicativos móveis de coleta e consulta da suíte.' },
 ]
 
 const porId = Object.fromEntries(PILARES.map((p) => [p.id, p]))
@@ -372,8 +453,18 @@ export default function Solucoes() {
       {/* 1. HERÓI */}
       <section
         className="relative overflow-hidden text-white"
-        style={{ background: `linear-gradient(135deg, ${AZUL} 0%, #082C4D 60%, #061F36 100%)` }}
       >
+        <img
+          src="/images/fotos/armazem-1600.webp"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{ background: `linear-gradient(100deg, ${AZUL}e8 0%, #082C4Dd9 55%, #061F36cc 100%)` }}
+        />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-[0.08]"
@@ -397,7 +488,7 @@ export default function Solucoes() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Cta to="/contato" variant="bronze">Fale com um especialista</Cta>
-            <Cta to="/tecnologias" variant="ghostLight">Conhecer o iFlow</Cta>
+            <Cta scrollTo="integrade-one" variant="ghostLight">Conhecer o Integrade One</Cta>
           </div>
 
           <nav aria-label="Atalhos das soluções" className="mt-12 flex flex-wrap gap-2">
@@ -544,7 +635,7 @@ export default function Solucoes() {
           <p className="mt-3 text-slate-600">
             Compre só o que precisa — ou contrate tudo integrado. Cada solução conversa com as
             demais: a plaqueta que aplicamos é lida pelo coletor que fornecemos e registrada no
-            iFlow.
+            Integrade One.
           </p>
         </div>
 
@@ -580,41 +671,78 @@ export default function Solucoes() {
                   {p.cta.label}
                 </Cta>
               </div>
+              {p.extraLink && (
+                <Link
+                  to={p.extraLink.to}
+                  className={`mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B3B66] hover:underline ${focus}`}
+                >
+                  {p.extraLink.label}
+                  <Icon name="arrow" className="h-3.5 w-3.5" />
+                </Link>
+              )}
             </article>
           ))}
         </div>
       </section>
 
-      {/* 4. GATILHO iFLOW */}
-      <section className="px-4 sm:px-6 lg:px-8">
+      {/* 4. INTEGRADE ONE — a suíte do ecossistema Integrade */}
+      <section id="integrade-one-suite" className="scroll-mt-24 px-4 sm:px-6 lg:px-8">
         <div
-          className="mx-auto grid max-w-7xl gap-8 overflow-hidden rounded-3xl p-8 text-white sm:p-12 lg:grid-cols-5 lg:items-center"
+          className="mx-auto overflow-hidden rounded-3xl p-8 text-white sm:p-12"
           style={{ background: `linear-gradient(120deg, ${AZUL} 0%, ${AZUL_CLARO} 100%)` }}
         >
-          <div className="lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3CDB6]">
-              iFlow · SaaS de gestão de ativos
-            </p>
-            <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
-              O inventário terminou. Como manter a base certa no mês que vem?
-            </h2>
-            <p className="mt-4 max-w-xl leading-relaxed text-slate-200">
-              Sem um sistema, cada transferência, compra e baixa volta a desalinhar o físico do
-              contábil. O iFlow recebe a base saneada do inventário e mantém o controle vivo — com
-              aplicativo de coleta, depreciação automática e trilha de auditoria.
-            </p>
+          <div className="grid gap-8 lg:grid-cols-5 lg:items-center">
+            <div className="lg:col-span-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E3CDB6]">
+                Integrade One · suíte de gestão de ativos (EAM)
+              </p>
+              <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
+                O inventário terminou. Como manter a base certa no mês que vem?
+              </h2>
+              <p className="mt-4 max-w-xl leading-relaxed text-slate-200">
+                Sem um sistema, cada transferência, compra e baixa volta a desalinhar o físico do
+                contábil. O Integrade One recebe a base saneada do inventário e mantém o controle
+                vivo — com aplicativo de coleta, depreciação automática e trilha de auditoria. Os
+                módulos estão no mesmo nível e compõem a suíte conforme a necessidade da operação.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 lg:col-span-2 lg:items-end">
+              <Cta to="/contato" variant="light">Agendar demonstração</Cta>
+              <Cta href={mailtoComercial('Integrade One — quero migrar minha base para o sistema')} variant="ghostLight">
+                Migrar minha base para o Integrade One
+              </Cta>
+              <Link
+                to="/calculadora-depreciacao"
+                className="text-sm font-semibold text-[#E3CDB6] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                Testar a calculadora de depreciação grátis
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 lg:col-span-2 lg:items-end">
-            <Cta to="/tecnologias" variant="light">Agendar demonstração</Cta>
-            <Cta href={mailtoComercial('iFlow — quero migrar minha base para o sistema')} variant="ghostLight">
-              Migrar minha base para o iFlow
-            </Cta>
-            <Link
-              to="/calculadora-depreciacao"
-              className="text-sm font-semibold text-[#E3CDB6] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              Testar a calculadora de depreciação grátis
-            </Link>
+
+          <div className="mt-10 border-t border-white/15 pt-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#E3CDB6]">
+              Módulos e aplicativos
+            </p>
+            <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {MODULOS_INTEGRADE_ONE.map((m) => (
+                <li key={m.nome} className="rounded-2xl border border-white/15 bg-white/5 p-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-[#E3CDB6]">
+                    <Icon name={m.icon} className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-3.5 text-sm font-semibold text-white">{m.nome}</h3>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-slate-300">{m.desc}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-slate-300/80">
+              <Icon name="shield" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-300/60" />
+              <span>
+                Composição modular definida conforme a necessidade do cliente. Nomes apresentados
+                como proposta de organização do portfólio — recursos e escopo são confirmados em
+                demonstração.
+              </span>
+            </p>
           </div>
         </div>
       </section>

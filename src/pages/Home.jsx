@@ -18,7 +18,7 @@ const TINTA = '#0F172A'
 
 const SITE_TITLE = 'Controle Patrimonial e Avaliações | Integrade Consulting'
 const SITE_DESC =
-  'Controle patrimonial e avaliações de bens móveis e imóveis com a Integrade Consulting. Conheça o iFlow, plataforma para gestão de ativos empresariais.'
+  'Controle patrimonial e avaliações de bens móveis e imóveis com a Integrade Consulting. Conheça o Integrade One, plataforma para gestão de ativos empresariais.'
 
 /* Evidências: manter vazio até existir material validado.
    Nada é inventado — com a lista vazia a seção não é renderizada. */
@@ -230,7 +230,7 @@ const ATIVOS_PAINEL = [
   { icon: 'wrench', titulo: 'Manutenção', sub: 'Plano por ativo', estado: 'Programação' },
 ]
 
-function PainelIfLow() {
+function PainelIntegradeOne() {
   return (
     <div className="relative">
       {/* camadas de profundidade — decorativas */}
@@ -243,7 +243,7 @@ function PainelIfLow() {
 
       <figure
         className="relative overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-[0_30px_70px_-42px_rgba(11,59,102,0.65)]"
-        aria-label="Representação conceitual da conexão entre patrimônio, contabilidade, imóveis, manutenção e projetos no iFlow, com lista de ativos e mapa de bens imóveis."
+        aria-label="Representação conceitual da conexão entre patrimônio, contabilidade, imóveis, manutenção e projetos no Integrade One, com lista de ativos e mapa de bens imóveis."
       >
         <div
           aria-hidden="true"
@@ -270,7 +270,7 @@ function PainelIfLow() {
             <svg viewBox="0 0 400 320" className="absolute inset-0 h-full w-full" aria-hidden="true" focusable="false">
               <circle cx="200" cy="160" r="58" fill="none" stroke={AZUL} strokeWidth="1" strokeDasharray="3 7" opacity=".22" />
               <circle cx="200" cy="160" r="96" fill="none" stroke={AZUL} strokeWidth="1" strokeDasharray="2 9" opacity=".14" />
-              <circle className="iflow-glow" cx="200" cy="160" r="74" fill="none" stroke={BRONZE} strokeWidth="1.4" opacity=".3" />
+              <circle className="integrade-one-glow" cx="200" cy="160" r="74" fill="none" stroke={BRONZE} strokeWidth="1.4" opacity=".3" />
               {LINHAS_PAINEL.map((d) => (
                 <path key={d} d={d} fill="none" stroke={AZUL} strokeWidth="1.6" strokeLinecap="round" opacity=".3" />
               ))}
@@ -282,7 +282,8 @@ function PainelIfLow() {
                 className="flex h-[4.5rem] w-[4.5rem] flex-col items-center justify-center rounded-[1.1rem] text-white shadow-[0_18px_40px_-16px_rgba(11,59,102,0.95)] sm:h-20 sm:w-20"
                 style={{ backgroundImage: `linear-gradient(145deg, ${AZUL_CLARO} 0%, ${AZUL} 100%)` }}
               >
-                <span className="text-[13px] font-semibold leading-none tracking-tight sm:text-sm">iFlow</span>
+                <span className="text-[10px] font-semibold leading-tight tracking-tight sm:text-[11px]">Integrade</span>
+                <span className="text-[13px] font-semibold leading-none tracking-tight sm:text-sm">One</span>
                 <span className="mt-1 text-[8px] uppercase leading-none tracking-[0.18em] text-white/70">plataforma</span>
               </div>
             </div>
@@ -384,13 +385,13 @@ const DESAFIOS = [
   {
     icon: 'organize',
     titulo: 'Falta de continuidade entre o levantamento e a gestão cotidiana',
-    frente: 'iFlow',
+    frente: 'Integrade One',
     texto:
       'Muitos trabalhos terminam em um relatório que deixa de ser usado. A plataforma mantém o conhecimento patrimonial em circulação na rotina das áreas.',
   },
 ]
 
-const FRENTES_IFLOW = [
+const FRENTES_INTEGRADE_ONE = [
   { icon: 'box', titulo: 'Patrimônio e bens móveis', texto: 'Cadastro e acompanhamento dos bens, com identificação e histórico por item.' },
   { icon: 'ledger', titulo: 'Gestão contábil patrimonial', texto: 'Informação patrimonial organizada para o diálogo com a contabilidade.' },
   { icon: 'building', titulo: 'Bens imóveis', texto: 'Registro dos imóveis, suas características e vínculos com a operação.' },
@@ -411,14 +412,14 @@ const JORNADA = [
 const FAQ = [
   {
     q: 'O que a Integrade Consulting faz?',
-    a: 'Atua em controle patrimonial e em avaliações de bens móveis e imóveis, apoiando empresas a conhecer, organizar e gerir seus ativos. O trabalho combina especialização técnica com a tecnologia do iFlow.',
+    a: 'Atua em controle patrimonial e em avaliações de bens móveis e imóveis, apoiando empresas a conhecer, organizar e gerir seus ativos. O trabalho combina especialização técnica com a tecnologia do Integrade One.',
   },
   {
     q: 'Quais tipos de ativos fazem parte do escopo?',
     a: 'Bens móveis e bens imóveis, incluindo equipamentos, instalações e imóveis corporativos. O recorte exato de cada trabalho é definido no início do projeto, conforme a necessidade da empresa.',
   },
   {
-    q: 'O que é o iFlow?',
+    q: 'O que é o Integrade One?',
     a: 'É a plataforma de gestão de ativos empresariais do ecossistema Integrade — o que o mercado chama de EAM (Enterprise Asset Management). Reúne informações patrimoniais e apoia a rotina de gestão dos ativos.',
   },
   {
@@ -427,14 +428,14 @@ const FAQ = [
   },
   {
     q: 'Como solicitar atendimento ou uma demonstração?',
-    a: 'Pelo formulário desta página, indicando o interesse em controle patrimonial, avaliações ou iFlow. A partir do contato, o escopo e as condições são alinhados diretamente com a equipe.',
+    a: 'Pelo formulário desta página, indicando o interesse em controle patrimonial, avaliações ou Integrade One. A partir do contato, o escopo e as condições são alinhados diretamente com a equipe.',
   },
 ]
 
 const INTERESSES = [
   { valor: 'controle-patrimonial', label: 'Controle patrimonial' },
   { valor: 'avaliacoes', label: 'Avaliações' },
-  { valor: 'iflow', label: 'iFlow' },
+  { valor: 'integrade-one', label: 'Integrade One' },
   { valor: 'outros', label: 'Outros' },
 ]
 
@@ -508,10 +509,10 @@ export default function Home() {
   return (
     <div className="bg-white" style={{ color: TINTA }}>
       <style>{`
-        @keyframes iflowGlow { 0%,100% { opacity:.22; transform:scale(.97) } 50% { opacity:.42; transform:scale(1.03) } }
-        .iflow-glow { animation: iflowGlow 8s ease-in-out infinite; transform-origin: 200px 160px; }
+        @keyframes integradeOneGlow { 0%,100% { opacity:.22; transform:scale(.97) } 50% { opacity:.42; transform:scale(1.03) } }
+        .integrade-one-glow { animation: integradeOneGlow 8s ease-in-out infinite; transform-origin: 200px 160px; }
         @media (prefers-reduced-motion: reduce) {
-          .iflow-glow { animation: none !important; }
+          .integrade-one-glow { animation: none !important; }
           html { scroll-behavior: auto !important; }
         }
         .cta-foco:focus-visible { outline: 3px solid ${AZUL_CLARO}; outline-offset: 3px; }
@@ -547,7 +548,7 @@ export default function Home() {
 
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
                 A Integrade Consulting combina especialização em controle patrimonial e avaliações com a
-                tecnologia do iFlow para apoiar a gestão de bens móveis e imóveis e conectar patrimônio,
+                tecnologia do Integrade One para apoiar a gestão de bens móveis e imóveis e conectar patrimônio,
                 contabilidade e operação.
               </p>
 
@@ -563,20 +564,20 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => scrollToId('iflow')}
+                  onClick={() => scrollToId('integrade-one')}
                   className="cta-foco inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
                 >
-                  Conheça o iFlow
+                  Conheça o Integrade One
                 </button>
               </div>
 
               <p className="mt-6 max-w-md text-xs leading-relaxed text-slate-500">
                 Uma empresa do ecossistema Integrade. Consultoria patrimonial e avaliações técnicas com apoio
-                da plataforma iFlow.
+                da plataforma Integrade One.
               </p>
             </div>
 
-            <PainelIfLow />
+            <PainelIntegradeOne />
           </div>
         </div>
       </section>
@@ -705,8 +706,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. IFLOW ─────────────────────────────────────────────────────── */}
-      <section id="iflow" className="scroll-mt-24 border-t border-slate-100" style={{ backgroundColor: '#F8FAFC' }}>
+      {/* ── 5. INTEGRADE ONE ─────────────────────────────────────────────── */}
+      <section id="integrade-one" className="scroll-mt-24 border-t border-slate-100" style={{ backgroundColor: '#F8FAFC' }}>
         <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
             <div>
@@ -714,10 +715,10 @@ export default function Home() {
                 Plataforma do ecossistema Integrade
               </p>
               <h2 className="mt-4 text-2xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-3xl">
-                iFlow: conecte as informações e a gestão dos seus ativos.
+                Integrade One: conecte as informações e a gestão dos seus ativos.
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
-                O iFlow é a plataforma de gestão de ativos empresariais do ecossistema Integrade — o que o
+                O Integrade One é a plataforma de gestão de ativos empresariais do ecossistema Integrade — o que o
                 mercado chama de EAM, do inglês <em>Enterprise Asset Management</em>. Em linguagem simples: é
                 o ambiente em que a empresa registra seus ativos, acompanha a situação de cada um e organiza
                 as rotinas ligadas a eles.
@@ -748,7 +749,7 @@ export default function Home() {
 
             <div>
               <ul className="grid gap-4 sm:grid-cols-2">
-                {FRENTES_IFLOW.map((f) => (
+                {FRENTES_INTEGRADE_ONE.map((f) => (
                   <li key={f.titulo} className="rounded-2xl border border-slate-200 bg-white p-5">
                     <span
                       className="flex h-11 w-11 items-center justify-center rounded-xl"
@@ -851,11 +852,11 @@ export default function Home() {
             <div>
               <p className="text-sm leading-relaxed text-white/70 sm:text-[15px]">
                 A Integrade reúne competências em consultoria, tecnologia e serviços. A Integrade Consulting é
-                a frente especializada em controle patrimonial e avaliações; o iFlow é a plataforma de gestão
+                a frente especializada em controle patrimonial e avaliações; o Integrade One é a plataforma de gestão
                 de ativos do ecossistema.
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
-                {['Integrade Consulting', 'iFlow · plataforma'].map((tag) => (
+                {['Integrade Consulting', 'Integrade One · plataforma'].map((tag) => (
                   <span key={tag} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/80">
                     {tag}
                   </span>

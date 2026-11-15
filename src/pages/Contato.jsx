@@ -14,7 +14,7 @@ const INTERESSES = [
   'Equipamentos',
   'Inventário',
   'Avaliação e laudos',
-  'iFlow (sistema)',
+  'Integrade One (sistema)',
   'Outsourcing',
 ]
 
@@ -132,7 +132,7 @@ export default function Contato() {
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
             Conte o seu cenário e receba uma proposta com o escopo certo — de um lote de etiquetas a
-            uma operação completa de controle patrimonial com o iFlow.
+            uma operação completa de controle patrimonial com o Integrade One.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
